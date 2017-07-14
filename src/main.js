@@ -28,9 +28,9 @@ const routes = [
 // 3. 创建 router 实例，然后传 `routes` 配置
 // 你还可以传别的配置参数, 不过先这么简单着吧。
 const router = new VueRouter({
-    mode: 'abstract',
-    base: __dirname,
-    routes // （缩写）相当于 routes: routes
+    routes,
+    // （缩写）相当于 routes: routes
+    linkActiveClass: 'active'
 })
 
 // 4. 创建和挂载根实例。
