@@ -27,7 +27,8 @@ export default {
   created() {
     console.log('this.$http', this.$http);
     this.$http.get('/api/goods').then((resp)=>{
-      console.log(resp);
+      resp = resp.body;
+      console.log(resp)
     })
   },
   components: {

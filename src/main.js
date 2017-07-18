@@ -4,6 +4,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
+import VueResource from 'vue-resource'
 import goods from './components/goods/goods'
 import ratings from './components/ratings/ratings'
 import seller from './components/seller/seller'
@@ -13,6 +14,7 @@ import seller from './components/seller/seller'
 // 0. 如果使用模块化机制编程， 要调用 Vue.use(VueRouter)
 // 全局注册
 Vue.use(VueRouter)
+Vue.use(VueResource)
 
 // 2. 定义路由
 // 每个路由应该映射一个组件。 其中"component" 可以是
