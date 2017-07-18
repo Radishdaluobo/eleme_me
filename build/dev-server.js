@@ -35,24 +35,23 @@ var goods = appData.goods;
 var ratings = appData.ratings;
 
 var apiRoutes = express.Router();
-
-apiRoutes.get('./seller', function(req, res) {
+//注意这里是'/seller',不是'./seller',神坑!!!找了好久
+apiRoutes.get('/seller', function(req, res) {
     console.log(res.json);
     res.json({
         errno: 0,
         data: seller
     })
-    console.log(res.json.data);
 })
 
-apiRoutes.get('./goods', function(req, res) {
+apiRoutes.get('/goods', function(req, res) {
     res.json({
         errno: 0,
         data: goods
     })
 })
 
-apiRoutes.get('./ratings', function(req, res) {
+apiRoutes.get('/ratings', function(req, res) {
     res.json({
         errno: 0,
         data: ratings

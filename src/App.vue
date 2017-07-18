@@ -12,13 +12,24 @@
         <router-link to="/seller">商家</router-link>
       </div>     
     </div>
-    <router-view></router-view>
+    <router-view></router-view> 
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import header from './components/header/header'
 export default {
+  data()  {
+    return {
+      seller: {}
+    }
+  },
+  created() {
+    console.log('this.$http', this.$http);
+    this.$http.get('/api/goods').then((resp)=>{
+      console.log(resp);
+    })
+  },
   components: {
     'v-header': header
   }
