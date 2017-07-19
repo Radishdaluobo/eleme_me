@@ -17,17 +17,21 @@
                     <span class="text">{{seller.supports[1].description}}</span>
                 </div>
             </div>
-            <div v-if="seller.supports" class="support-content">
+            <div v-if="seller.supports" class="support-content" @click="showDetail">
                 <span class="count">{{seller.supports.length}}个</span>
                 <i class="icon-keyboard_arrow_right"></i>
             </div>
         </div>
-        <div class="bulletin-wrapper">
+        <div class="bulletin-wrapper" @click="showDetail">
             <span class="bulletin-title"></span><span class="bulletin-text">{{seller.bulletin}}</span>
             <i class="icon-keyboard_arrow_right"></i>
         </div>
         <div class="background">
             <img width="100%" height="100%" :src="seller.avatar">
+        </div>
+        <div class="detail" v-show="detailShow">
+            <h1 class="detail-title">{{seller.name}}</h1>
+            
         </div>
     </div>
 </template>
@@ -40,8 +44,18 @@ export default {
             type: Object
         }
     },
+    data() {
+        return {
+            detailShow: false
+        }
+    },
     created() {
         this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
+    },
+    methods: {
+        showDetail() {
+            this.detailShow = true;
+        }
     }
 }
 </script>
@@ -52,6 +66,8 @@ export default {
         color:#fff;
         position: relative;
         background:rgba(7,17,27,0.5);
+        // 防止filter:blur()之后模糊的溢出
+        // overflow:hidden;
       .content-wrapper{
           position: relative;
           padding:24px 12px 18px 24px;
@@ -181,6 +197,21 @@ export default {
           z-index: -1;
           // 添加高斯模糊效果
           filter:blur(10px);
+      }
+      .detail{
+          position: fixed;
+          z-index:1;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background:rgba(7, 17, 27, .8);
+          backdrop-filter: blur(10px); /*ios 模糊背景*/
+          padding:60px 20px 0 20px;
+          overflow: auto;
+          .detail-title{
+              text-align: center;
+          }
       }
     }
 </style>
