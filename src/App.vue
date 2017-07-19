@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-header></v-header>
+    <v-header :seller="seller"></v-header>
     <div class="tab">
       <div class="tab-item">
         <router-link to="/goods">商品</router-link>
@@ -18,6 +18,7 @@
 
 <script type="text/ecmascript-6">
 import header from './components/header/header'
+const ERR_OK = 0;
 export default {
   data()  {
     return {
@@ -25,10 +26,11 @@ export default {
     }
   },
   created() {
-    console.log('this.$http', this.$http);
-    this.$http.get('/api/goods').then((resp)=>{
+    this.$http.get('/api/seller').then((resp)=>{
       resp = resp.body;
-      console.log(resp)
+      if (resp.errno === ERR_OK) {
+        this.seller = resp.data;
+      }
     })
   },
   components: {

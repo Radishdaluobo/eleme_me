@@ -10,6 +10,8 @@ import ratings from './components/ratings/ratings'
 import seller from './components/seller/seller'
 
 // 引入需要打包的外部样式
+import '../static/css/reset.css'
+import './common/scss/index.scss'
 
 // 0. 如果使用模块化机制编程， 要调用 Vue.use(VueRouter)
 // 全局注册

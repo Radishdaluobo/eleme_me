@@ -54,7 +54,7 @@ module.exports = {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
                 loader: 'url-loader',
                 options: {
-                    // 当图片大小小于10KB的时候,会先将图片base64,打包到编译后的js文件里,否则超过10KB的话,单独生成一个文件
+                    // 当图片大小小于10KB的时候,会先将图片base64,打包到编译后的js文件里,否则超过10KB的话,单独生成一个文件,可以检查url参数查看
                     limit: 10000,
                     // 生成文件名的规则
                     name: utils.assetsPath('img/[name].[hash:7].[ext]')
