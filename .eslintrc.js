@@ -30,7 +30,8 @@ module.exports = {
         'semi': 0,
         'arrow-spacing': 0,
         'no-multi-spaces': 0,
-        'space-before-function-paren': 0
+        'space-before-function-paren': 0,
+        'key-spacing': 0
     },
     "emmet.syntaxProfiles": {
         "vue-html": "html",
