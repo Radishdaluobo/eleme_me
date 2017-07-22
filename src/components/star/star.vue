@@ -5,7 +5,10 @@
 </template>
 
 <script>
-
+const LENGTH = 5;
+const CLS_ON = 'on';
+const CLS_HALF = 'half';
+const CLS_OFF = 'off';
 export default {
     props: {
         size: {
@@ -30,14 +33,14 @@ export default {
             let integer = parseInt(score);
             let float = score % 1 === 0 ? 0 : 1;
             for (let i = 0; i < integer; i++) {
-                classMap.push('on')
+                classMap.push(CLS_ON)
             }
             if (float) {
-                classMap.push('half')
+                classMap.push(CLS_HALF)
             }
-            let offNum = 5 - integer - float;
-            for (let i = 0; i < offNum; i++) {
-                classMap.push('off')
+            // while循环有时候很好用的
+            while (classMap.length < LENGTH) {
+                classMap.push(CLS_OFF)
             }
             return classMap;
         }

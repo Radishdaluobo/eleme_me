@@ -31,14 +31,19 @@
             <img width="100%" height="100%" :src="seller.avatar">
         </div>
         <div class="detail-wrapper" v-show="detailShow">
-            <div class="detail-main">
+            <div class="detail-main">         
                 <h1 class="detail-title">{{seller.name}}</h1>
                 <div class="star-wrapper">
                     <star :score="2.6" :size="48"></star>
                 </div>
+                <div class="title">
+                    <div class="line"></div>
+                    <div class="text">优惠信息</div>
+                    <div class="line"></div>
+                </div>
             </div>
             <div class="detail-close">
-                <i class="icon-close"></i>
+                <i class="icon-close" @click="hideDetail"></i>
             </div>
         </div>
     </div>
@@ -63,6 +68,9 @@ export default {
     methods: {
         showDetail() {
             this.detailShow = true;
+        },
+        hideDetail() {
+            this.detailShow = false;
         }
     },
     components: {
@@ -216,9 +224,11 @@ export default {
         background: rgba(7, 17, 27, .8);
         backdrop-filter: blur(10px);
         /*ios 模糊背景*/
-        padding: 60px 20px 0 20px;
         overflow: auto;
         .detail-main {
+            box-sizing: border-box;
+            min-height:100%;
+            padding:70px 0 64px 0;
             .detail-title {
                 text-align: center;
             }
@@ -226,10 +236,28 @@ export default {
                 text-align: center;
                 margin: 20px;
             }
+            .title{
+                display:flex;/*注意这里flex布局的写法*/
+                width:80%;
+                margin:20px auto;
+                .line{
+                    position:relative;
+                    top:-6px;
+                    flex:1;/*注意这里flex布局的写法*/
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+                }
+                .text{
+                    font-size: 14px;
+                    padding:0 10px;
+                }
+            }
         }
         .detail-close{
-            font-size: 26px;
+            position: relative;
+            margin-top:-48px;
+            font-size: 32px;
             text-align: center;
+            clear:both;
         }
     }
 }
