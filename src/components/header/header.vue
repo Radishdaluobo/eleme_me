@@ -30,22 +30,38 @@
         <div class="background">
             <img width="100%" height="100%" :src="seller.avatar">
         </div>
-        <div class="detail-wrapper" v-show="detailShow">
-            <div class="detail-main">         
-                <h1 class="detail-title">{{seller.name}}</h1>
-                <div class="star-wrapper">
-                    <star :score="2.6" :size="48"></star>
+        <transition name="fade">
+            <div class="detail-wrapper" v-show="detailShow">
+                <div class="detail-main">
+                    <h1 class="detail-title">{{seller.name}}</h1>
+                    <div class="star-wrapper">
+                        <star :score="2.6" :size="48"></star>
+                    </div>
+                    <div class="title">
+                        <div class="line"></div>
+                        <div class="text">优惠信息</div>
+                        <div class="line"></div>
+                    </div>
+                    <ul class="supports">
+                        <li v-for="(sellerItem,index) in seller.supports" class="supports-item">
+                            <span class="icon" :class="classMap[sellerItem.type]"></span>
+                            <span class="text">{{sellerItem.description}}</span>
+                        </li>
+                    </ul>
+                    <div class="title">
+                        <div class="line"></div>
+                        <div class="text">商家公告</div>
+                        <div class="line"></div>
+                    </div>
+                    <div class="bulletin">
+                        <p>{{seller.bulletin}}</p>
+                    </div>
                 </div>
-                <div class="title">
-                    <div class="line"></div>
-                    <div class="text">优惠信息</div>
-                    <div class="line"></div>
+                <div class="detail-close">
+                    <i class="icon-close" @click="hideDetail"></i>
                 </div>
             </div>
-            <div class="detail-close">
-                <i class="icon-close" @click="hideDetail"></i>
-            </div>
-        </div>
+        </transition>
     </div>
 </template>
 
@@ -145,6 +161,9 @@ export default {
                     &.invoice {
                         @include bg-image('invoice_1')
                     }
+                    &.special {
+                        @include bg-image('special_1')
+                    }
                 }
                 .text {
                     font-size: 10px;
@@ -225,10 +244,20 @@ export default {
         backdrop-filter: blur(10px);
         /*ios 模糊背景*/
         overflow: auto;
+        transition: all .5s;
+        &.fade-enter-active,
+        &.fade-leave-active {
+            transition: opacity 0.5s;
+        }
+        &.fade-enter,
+        &.fade-leave-to/* .fade-leave-active in below version 2.1.8 */
+        {
+            opacity: 0;
+        }
         .detail-main {
             box-sizing: border-box;
-            min-height:100%;
-            padding:70px 0 64px 0;
+            min-height: 100%;
+            padding: 70px 0 64px 0;
             .detail-title {
                 text-align: center;
             }
@@ -236,28 +265,72 @@ export default {
                 text-align: center;
                 margin: 20px;
             }
-            .title{
-                display:flex;/*注意这里flex布局的写法*/
-                width:80%;
-                margin:20px auto;
-                .line{
-                    position:relative;
-                    top:-6px;
-                    flex:1;/*注意这里flex布局的写法*/
+            .title {
+                display: flex;
+                /*注意这里flex布局的写法*/
+                width: 80%;
+                margin: 20px auto;
+                .line {
+                    position: relative;
+                    top: -6px;
+                    flex: 1;
+                    /*注意这里flex布局的写法*/
                     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
                 }
-                .text{
+                .text {
                     font-size: 14px;
-                    padding:0 10px;
+                    padding: 0 10px;
                 }
             }
+            .supports {
+                font-size: 0;
+                width: 80%;
+                margin: 0 auto;
+                .supports-item {
+                    padding: 7px 0;
+                    .icon {
+                        display: inline-block;
+                        vertical-align: top;
+                        width: 12px;
+                        height: 12px;
+                        margin-right: 4px;
+                        background-size: 12px 12px;
+                        background-repeat: no-repeat;
+                        &.decrease {
+                            @include bg-image('decrease_2')
+                        }
+                        &.discount {
+                            @include bg-image('discount_2')
+                        }
+                        &.guarantee {
+                            @include bg-image('guarantee_2')
+                        }
+                        &.invoice {
+                            @include bg-image('invoice_2')
+                        }
+                        &.special {
+                            @include bg-image('special_2')
+                        }
+                    }
+                    .text {
+                        font-size: 12px;
+                        line-height: 12px;
+                    }
+                }
+            }
+            .bulletin {
+                width: 80%;
+                margin: 0 auto;
+                font-size: 12px;
+                line-height: 24px;
+            }
         }
-        .detail-close{
+        .detail-close {
             position: relative;
-            margin-top:-48px;
+            margin-top: -48px;
             font-size: 32px;
             text-align: center;
-            clear:both;
+            clear: both;
         }
     }
 }
