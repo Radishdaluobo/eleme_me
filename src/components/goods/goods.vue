@@ -10,9 +10,32 @@
                 </li>
             </ul>
         </div>
-        <div class="goods-wtapper">
+        <div class="goods-wrapper">
             <ul>
-
+                <li v-for="(item,index) in goods" class="goods-item">
+                    <h3 class="goods-item-title">{{item.name}}</h3>
+                    <ul>
+                        <li v-for="food in item.foods" class="food-item">
+                            <div class="food-image">
+                                <img :src="food.icon" width="57" height="57"/>
+                            </div>
+                            <div class="food-content">
+                                <h3 class="name-title">{{food.name}}</h3>
+                                <h4 class="food-detail">{{food.description}}</h4>
+                                <h4 class="food-detail">月售{{food.sellCount}}份&nbsp;&nbsp;好评率{{food.rating}}%</h4>
+                                <p class="price">
+                                    <span class="now">¥{{food.price}}</span>
+                                    <span v-if="food.oldPrice" class="old">¥{{food.oldPrice}}</span>
+                                </p>
+                                <div class="cartcontrol-wrapper">
+                                    <span class="icon-remove_circle_outline icon"></span>
+                                    <span class="count">1</span>
+                                    <span class="icon-add_circle icon"></span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
@@ -59,16 +82,18 @@ export default {
         overflow: auto;
         background: #f3f5f7;
         padding: 0 12px;
-        .menu-item{
-            display:table;       
-            height:54px;   
-            width:56px;
+        .menu-item {
+            /*垂直居中*/
+            display: table;
+            height: 54px;
+            width: 56px;
             font-size: 0;
-            .text{
-                font-size:12px;
+            .text {
+                font-size: 12px;
+                /*垂直居中*/
                 display: table-cell;
                 vertical-align: middle;
-                .icon{
+                .icon {
                     display: inline-block;
                     vertical-align: top;
                     width: 12px;
@@ -95,11 +120,66 @@ export default {
             }
         }
     }
-    .goods-wtapper {
+    .goods-wrapper {
         /*注意这里*/
         flex: 1;
-        background: yellowgreen;
         overflow: auto;
+        .goods-item {
+            .goods-item-title {
+                height: 26px;
+                line-height: 26px;
+                font-size: 12px;
+                background: rgb(243, 245, 247);
+                color: rgb(156, 161, 167);
+                padding-left: 12px;
+                border-left: 4px solid #d9dde1;
+            }
+            .food-item {
+                display: flex;
+                padding:15px;
+                .food-image {
+                    flex: 0 0 57px;
+                    margin-right:10px;
+                }
+                .food-content {
+                    flex: 1;
+                    position: relative;
+                    .name-title{
+                        font-size: 14px;
+                        margin-bottom: 8px;
+                    }
+                    .food-detail{
+                        font-size: 10px;
+                        color: rgb(156, 161, 167);
+                        margin:2px 0;
+                    }
+                    .price{
+                        .now{
+                            color:#e4393c;
+                        }
+                        .old{
+                            font-size: 10px;
+                            text-decoration:line-through;
+                            color: rgb(156, 161, 167);
+                        }
+                    }
+                    .cartcontrol-wrapper{
+                        position: absolute;
+                        bottom:0;
+                        right:0;
+                        .icon{
+                            font-size: 20px;
+                            vertical-align: middle;
+                            color:#00a0dc;
+                        }
+                        .count{
+                            color: rgb(156, 161, 167);
+                        }
+                    }
+
+                }
+            }
+        }
     }
 }
 </style>
