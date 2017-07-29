@@ -31,7 +31,11 @@ module.exports = {
         'arrow-spacing': 0,
         'no-multi-spaces': 0,
         'space-before-function-paren': 0,
-        'key-spacing': 0
+        'key-spacing': 0,
+        'space-before-blocks': 0,
+        'space-in-parens': 0,
+        'comma-spacing': 0,
+        'space-in-parens': 0
     },
     "emmet.syntaxProfiles": {
         "vue-html": "html",
