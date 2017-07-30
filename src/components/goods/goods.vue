@@ -2,7 +2,9 @@
     <div class="goods">
         <div class="menu-wrapper" ref="menuWrapper">
             <ul>
-                <li v-for="(item,index) in goods" class="menu-item" :class="currentIndex === index ? 'active' : '' ">
+                <li v-for="(item,index) in goods" class="menu-item" 
+                :class="currentIndex === index ? 'active' : '' "
+                @click="selectMenu(index,$event)">
                     <span class="text">
                         <span v-if="item.type > 0" class="icon" :class="classMap[item.type]"></span>
                         {{item.name}}
@@ -58,7 +60,7 @@ export default {
             resp = resp.data;
             if (resp.errno === ERR_OK) {
                 this.goods = resp.data;
-                // DOM 更新了 操作dom时一定要在$nextTick里
+                // DOM 更新了 操作dom时一定要调用$nextTick接口,在这个接口的回调函数里进行操作
                 this.$nextTick(() => {
                     this._initScroll();
                     this._calculateHeight();
@@ -81,7 +83,9 @@ export default {
     },
     methods: {
         _initScroll() {
-            this.menuScroll = new BSroll(this.$refs.menuWrapper, {})
+            this.menuScroll = new BSroll(this.$refs.menuWrapper, {
+                click: true
+            })
             this.goodsScroll = new BSroll(this.$refs.goodsWrapper, {
                 probeType: 3
                 //希望scroll在滚动的时候实时告诉我们位置
@@ -98,6 +102,15 @@ export default {
                 height += goodsLiDOM[i].clientHeight;
                 this.heightList.push(height)
             }
+        },
+        selectMenu(index,$event) { 
+            // BSscroll手动派发的$event,浏览器原生的$event没有这个属性
+            if (!$event._constructed) {
+                return;
+            }          
+            let goodsLiDOM = document.getElementsByClassName('goods-list-hook');
+            let el = goodsLiDOM[index];
+            this.goodsScroll.scrollToElement(el,300)
         }
     }
 }
@@ -133,6 +146,7 @@ export default {
             box-sizing: border-box;
             &.active{
                 background: #fff;
+                font-weight: 700;
             }
             .text {
                 font-size: 12px;
