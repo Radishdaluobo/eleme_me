@@ -41,11 +41,13 @@
                 </li>
             </ul>
         </div>
+        <shopCart></shopCart>
     </div>
 </template>
 
 <script>
 import BSroll from 'better-scroll'
+import shopCart from '../shopCart/shopCart.vue'
 const ERR_OK = 0;
 export default {
     data() {
@@ -112,7 +114,10 @@ export default {
             let el = goodsLiDOM[index];
             this.goodsScroll.scrollToElement(el,300)
         }
-    }
+    },
+    components: {
+    'shopCart': shopCart
+  }
 }
 </script>
 <style rel="stylesheet/scss" lang="scss" scope>
