@@ -30,7 +30,9 @@
                                     <span class="now">¥{{food.price}}</span>
                                     <span v-if="food.oldPrice" class="old">¥{{food.oldPrice}}</span>
                                 </p>
-                                <cartControl></cartControl>
+                                <div class="cartControl-wrapper">
+                                    <cartControl></cartControl>
+                                </div>
                             </div>
                         </li>
                     </ul>
@@ -226,6 +228,11 @@ export default {
                             text-decoration: line-through;
                             color: rgb(156, 161, 167);
                         }
+                    }
+                    .cartControl-wrapper{
+                        position: absolute;
+                        right: 0;
+                        bottom: -4px;
                     }
                 }
             }

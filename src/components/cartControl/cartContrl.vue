@@ -29,7 +29,10 @@ export default {
     }
     .cart-count {
         display: inline-block;
+        font-size: 12px;
         vertical-align: middle;
+        padding:0 5px;
+
     }
     .cart-add {
         display: inline-block;
