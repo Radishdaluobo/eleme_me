@@ -30,11 +30,7 @@
                                     <span class="now">¥{{food.price}}</span>
                                     <span v-if="food.oldPrice" class="old">¥{{food.oldPrice}}</span>
                                 </p>
-                                <div class="cartcontrol-wrapper">
-                                    <span class="icon-remove_circle_outline icon"></span>
-                                    <span class="count">1</span>
-                                    <span class="icon-add_circle icon"></span>
-                                </div>
+                                <cartControl></cartControl>
                             </div>
                         </li>
                     </ul>
@@ -48,6 +44,8 @@
 <script>
 import BSroll from 'better-scroll'
 import shopCart from '../shopCart/shopCart.vue'
+import cartControl from '../cartControl/cartContrl.vue'
+
 const ERR_OK = 0;
 export default {
     data() {
@@ -109,14 +107,15 @@ export default {
             // BSscroll手动派发的$event,浏览器原生的$event没有这个属性
             if (!$event._constructed) {
                 return;
-            }          
+            }         
             let goodsLiDOM = document.getElementsByClassName('goods-list-hook');
             let el = goodsLiDOM[index];
             this.goodsScroll.scrollToElement(el,300)
         }
     },
     components: {
-    'shopCart': shopCart
+    'shopCart': shopCart,
+    'cartControl': cartControl
   }
 }
 </script>
@@ -225,19 +224,6 @@ export default {
                         .old {
                             font-size: 10px;
                             text-decoration: line-through;
-                            color: rgb(156, 161, 167);
-                        }
-                    }
-                    .cartcontrol-wrapper {
-                        position: absolute;
-                        bottom: 0;
-                        right: 0;
-                        .icon {
-                            font-size: 20px;
-                            vertical-align: middle;
-                            color: #00a0dc;
-                        }
-                        .count {
                             color: rgb(156, 161, 167);
                         }
                     }
