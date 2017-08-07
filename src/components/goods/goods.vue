@@ -31,12 +31,12 @@
                                     <span v-if="food.oldPrice" class="old">¥{{food.oldPrice}}</span>
                                 </p>
                                 <div class="cartControl-wrapper">
-                                    <cartControl></cartControl>
+                                    <cartControl :food="food"></cartControl>
                                 </div>
                             </div>
                         </li>
                     </ul>
-                </li>
+                </li>            
             </ul>
         </div>
         <shopCart></shopCart>
@@ -89,6 +89,7 @@ export default {
                 click: true
             })
             this.goodsScroll = new BSroll(this.$refs.goodsWrapper, {
+                click: true,//BSroll阻止了点击事件，加上才能在元素上绑定点击事件
                 probeType: 3
                 //希望scroll在滚动的时候实时告诉我们位置
             })
