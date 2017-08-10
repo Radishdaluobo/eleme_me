@@ -7,6 +7,7 @@
         </transition>
         <div class="cart-count" v-show="food.count>0">{{ food.count }}</div>
         <div class="cart-add icon-add_circle" @click="addCart($event)"></div>
+        <div style="display:none">{{ num }}</div>
     </div>
 </template>
 
@@ -20,7 +21,7 @@ export default {
     },
     data() {
         return {
-
+            num: 0
         }
     },
     created() {
@@ -31,12 +32,11 @@ export default {
             if (event._constructed) {
                 return;
             }
-            console.log('click');
             if (!this.food.count) {
                 Vue.set(this.food, 'count', 1);
             } else {
+                this.num++;
                 this.food.count++;
-                console.log(this.food.count)
             }
         },
         decreaseCart(event) {
@@ -45,8 +45,8 @@ export default {
             }
             if (this.food.count) {
                 this.food.count--;
+                this.num--;
             }
-            console.log('click',this.food.count);
         }
     }
 }
