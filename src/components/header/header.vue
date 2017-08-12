@@ -13,8 +13,8 @@
                     {{seller.description}}/{{seller.deliveryTime}}分钟送达
                 </div>
                 <div class="support">
-                    <span class="icon" :class="classMap[seller.supports[1].type]"></span>
-                    <span class="text">{{seller.supports[1].description}}</span>
+                    <span class="icon" v-if="seller.supports" :class="classMap[seller.supports[1].type]"></span>
+                    <span class="text" v-if="seller.supports">{{seller.supports[1].description}}</span>
                 </div>
             </div>
             <div v-if="seller.supports" class="support-content" @click="showDetail">

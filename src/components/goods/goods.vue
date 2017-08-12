@@ -232,7 +232,7 @@ export default {
                     }
                     .cartControl-wrapper{
                         position: absolute;
-                        right: 0;
+                        right: -12px;;
                         bottom: -4px;
                     }
                 }
