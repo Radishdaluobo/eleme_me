@@ -2,9 +2,7 @@
     <div class="goods">
         <div class="menu-wrapper" ref="menuWrapper">
             <ul>
-                <li v-for="(item,index) in goods" class="menu-item" 
-                :class="currentIndex === index ? 'active' : '' "
-                @click="selectMenu(index,$event)">
+                <li v-for="(item,index) in goods" class="menu-item" :class="currentIndex === index ? 'active' : '' " @click="selectMenu(index,$event)">
                     <span class="text">
                         <span v-if="item.type > 0" class="icon" :class="classMap[item.type]"></span>
                         {{item.name}}
@@ -36,10 +34,10 @@
                             </div>
                         </li>
                     </ul>
-                </li>            
+                </li>
             </ul>
         </div>
-        <shopCart></shopCart>
+        <shopCart ref="shopcart"></shopCart>
     </div>
 </template>
 
@@ -70,6 +68,11 @@ export default {
             }
         })
         this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
+        Bus.$on('cart.add', el => {
+            this.$nextTick(() => {
+                this.$refs.shopcart.drop(el);
+            })
+        })
     },
     computed: {
         currentIndex() {
@@ -106,20 +109,20 @@ export default {
                 this.heightList.push(height)
             }
         },
-        selectMenu(index,$event) { 
+        selectMenu(index, $event) {
             // BSscroll手动派发的$event,浏览器原生的$event没有这个属性
             if (!$event._constructed) {
                 return;
-            }         
+            }
             let goodsLiDOM = document.getElementsByClassName('goods-list-hook');
             let el = goodsLiDOM[index];
-            this.goodsScroll.scrollToElement(el,300)
+            this.goodsScroll.scrollToElement(el, 300)
         }
     },
     components: {
-    'shopCart': shopCart,
-    'cartControl': cartControl
-  }
+        'shopCart': shopCart,
+        'cartControl': cartControl
+    }
 }
 </script>
 <style rel="stylesheet/scss" lang="scss" scope>
@@ -147,11 +150,11 @@ export default {
             /*垂直居中*/
             display: table;
             height: 54px;
-            width:100%;
+            width: 100%;
             font-size: 0;
             padding-left: 12px;
             box-sizing: border-box;
-            &.active{
+            &.active {
                 background: #fff;
                 font-weight: 700;
             }
@@ -230,9 +233,10 @@ export default {
                             color: rgb(156, 161, 167);
                         }
                     }
-                    .cartControl-wrapper{
+                    .cartControl-wrapper {
                         position: absolute;
-                        right: -12px;;
+                        right: -12px;
+                        ;
                         bottom: -4px;
                     }
                 }

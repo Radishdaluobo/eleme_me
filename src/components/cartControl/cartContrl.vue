@@ -13,6 +13,7 @@
 
 <script>
 import Vue from 'Vue'
+import Bus from '../../common/js/eventBus.js'
 export default {
     props: {
         food: {
@@ -38,6 +39,7 @@ export default {
             } else {
                 this.num = ++this.food.count;
             }
+            Bus.$emit('cart.add', event.target);
         },
         decreaseCart(event) {
             if (event._constructed) {

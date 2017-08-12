@@ -5,6 +5,7 @@
                 <div class="logo-wrapper">
                     <div class="logo">
                         <i class="icon-shopping_cart"></i>
+                        <span class="select-num">12</span>
                     </div>
                 </div>
                 <div class="desc">
@@ -68,6 +69,19 @@ export default {
                     .icon-shopping_cart {
                         font-size: 30px;
                         color: #80858a;
+                    }
+                    .select-num{
+                        position: absolute;
+                        right: 5px;
+                        bottom: 44px;
+                        display:inline-block;
+                        width:20px;
+                        height:12px;
+                        border-radius: 5px;
+                        background: red;
+                        color: #fff;
+                        font-size: 10px;
+                        line-height: 12px;
                     }
                 }
             }
