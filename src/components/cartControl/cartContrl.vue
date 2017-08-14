@@ -40,6 +40,7 @@ export default {
                 this.num = ++this.food.count;
             }
             Bus.$emit('cart.add', event.target);
+            console.log('event.target',event.target);
         },
         decreaseCart(event) {
             if (event._constructed) {

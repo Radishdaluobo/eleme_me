@@ -29,7 +29,7 @@
                                     <span v-if="food.oldPrice" class="old">¥{{food.oldPrice}}</span>
                                 </p>
                                 <div class="cartControl-wrapper">
-                                    <cartControl :food="food"></cartControl>
+                                    <cartControl :food="food" :select-foods="selectFoods"></cartControl>
                                 </div>
                             </div>
                         </li>
@@ -45,6 +45,7 @@
 import BSroll from 'better-scroll'
 import shopCart from '../shopCart/shopCart.vue'
 import cartControl from '../cartControl/cartContrl.vue'
+import Bus from '../../common/js/eventBus.js'
 
 const ERR_OK = 0;
 export default {
@@ -69,8 +70,9 @@ export default {
         })
         this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
         Bus.$on('cart.add', el => {
-            this.$nextTick(() => {
-                this.$refs.shopcart.drop(el);
+            this.$nextTick((num) => {
+                console.log('this.$refs.shopcart', this.$refs.shopcart)
+                console.log('num', num)
             })
         })
     },
@@ -84,6 +86,19 @@ export default {
                 }
             }
             return 0
+        },
+        selectFoods() {
+            let foods = [];
+            this.goods.forEach((good) => {
+                good.foods.forEach((food) => {
+                    console.log('food',food)
+                    if (food.count) {
+                        foods.push(food)
+                    }
+                })
+                console.log('foods',foods);
+                return foods;
+            })
         }
     },
     methods: {
