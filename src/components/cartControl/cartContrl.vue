@@ -7,7 +7,7 @@
         </transition>
         <div class="cart-count" v-show="food.count>0">{{ food.count }}</div>
         <div class="cart-add icon-add_circle" @click="addCart($event)"></div>
-        <div style="display:none">{{ num }}</div>
+        <div style="display:none">{{ num.n }}</div>
     </div>
 </template>
 
@@ -22,7 +22,9 @@ export default {
     },
     data() {
         return {
-            num: 0
+            num: {
+                  n:0
+            }
         }
     },
     created() {
@@ -30,25 +32,26 @@ export default {
     },
     methods: {
         addCart(event) {
-            if (event._constructed) {
-                return;
-            }
+           if (event._constructed) {
+               return;
+           }
+          console.log(this.food.count)
             if (!this.food.count) {
                 Vue.set(this.food, 'count', 1);
-                this.num = 1;
+                this.num.n = 1;
             } else {
-                this.num = ++this.food.count;
+                this.num.n = ++this.food.count;
             }
-            Bus.$emit('cart.add', event.target);
-            console.log('event.target',event.target);
+            Bus.$emit('cart.add', this.num);
         },
         decreaseCart(event) {
-            if (event._constructed) {
-                return;
-            }
+           if (event._constructed) {
+               return;
+           }
             if (this.food.count) {
-                this.num = --this.food.count;
+                this.num.n = --this.food.count;
             }
+            Bus.$emit('cart.add', this.num);
         }
     }
 }

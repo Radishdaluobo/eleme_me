@@ -71,8 +71,8 @@ export default {
         this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
         Bus.$on('cart.add', el => {
             this.$nextTick((num) => {
-                console.log('this.$refs.shopcart', this.$refs.shopcart)
-                console.log('num', num)
+//                console.log('this.$refs.shopcart', this.$refs.shopcart)
+//                console.log('num', num)
             })
         })
     },
@@ -91,12 +91,12 @@ export default {
             let foods = [];
             this.goods.forEach((good) => {
                 good.foods.forEach((food) => {
-                    console.log('food',food)
+//                    console.log('food',food)
                     if (food.count) {
                         foods.push(food)
                     }
                 })
-                console.log('foods',foods);
+//                console.log('foods',foods);
                 return foods;
             })
         }
@@ -251,7 +251,6 @@ export default {
                     .cartControl-wrapper {
                         position: absolute;
                         right: -12px;
-                        ;
                         bottom: -4px;
                     }
                 }
