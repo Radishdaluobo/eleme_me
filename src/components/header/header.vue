@@ -17,7 +17,7 @@
                     <span class="text" v-if="seller.supports">{{seller.supports[1].description}}</span>
                 </div>
             </div>
-            <div v-if="seller.supports" class="support-content" @click="showDetail">
+            <div v-if="seller.supports" class="support-content" @click="showDetail = true">
                 <span class="count">{{seller.supports.length}}个</span>
                 <i class="icon-keyboard_arrow_right"></i>
             </div>
@@ -35,7 +35,7 @@
                 <div class="detail-main">
                     <h1 class="detail-title">{{seller.name}}</h1>
                     <div class="star-wrapper">
-                        <star :score="2.6" :size="48"></star>
+                        <star :score="seller.score" :size="48"></star>
                     </div>
                     <div class="title">
                         <div class="line"></div>
@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <div class="detail-close">
-                    <i class="icon-close" @click="hideDetail"></i>
+                    <i class="icon-close" @click="showDetail = false"></i>
                 </div>
             </div>
         </transition>
