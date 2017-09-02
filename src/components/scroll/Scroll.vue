@@ -123,7 +123,7 @@
             scrollTo(){
               this.scroll && this.scroll.scrollTo()
             },
-          
+
             scrollToElement(){
               this.scroll && this.scroll.scrollToElement()
             }
@@ -138,27 +138,3 @@
         }
     }
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

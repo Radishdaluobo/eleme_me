@@ -17,7 +17,7 @@
                     <span class="text" v-if="seller.supports">{{seller.supports[1].description}}</span>
                 </div>
             </div>
-            <div v-if="seller.supports" class="support-content" @click="showDetail = true">
+            <div v-if="seller.supports" class="support-content" @click="detailShow = true">
                 <span class="count">{{seller.supports.length}}个</span>
                 <i class="icon-keyboard_arrow_right"></i>
             </div>
@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <div class="detail-close">
-                    <i class="icon-close" @click="showDetail = false"></i>
+                    <i class="icon-close" @click="detailShow = false"></i>
                 </div>
             </div>
         </transition>

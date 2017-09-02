@@ -1,16 +1,30 @@
 <template>
     <div class="goods">
-        <div class="menu-wrapper" ref="menuWrapper">
+        <scroll class="menu-wrapper"
+                ref="menuWrapper"
+                :click="clickMenu"
+                :data="goods"
+                :listenScroll="true"
+                @scroll="scrollChange"
+        >
             <ul>
-                <li v-for="(item,index) in goods" class="menu-item" :class="currentIndex === index ? 'active' : '' " @click="selectMenu(index,$event)">
+                <li
+                  v-for="(item,index) in goods"
+                  class="menu-item"
+                  :class="{'active':currentIndex === index}"
+                  @click.stop="selectMenu(index,$event)">
                     <span class="text">
                         <span v-if="item.type > 0" class="icon" :class="classMap[item.type]"></span>
                         {{item.name}}
                     </span>
                 </li>
             </ul>
-        </div>
-        <div class="goods-wrapper" ref="goodsWrapper">
+        </scroll>
+        <scroll class="goods-wrapper"
+                ref="goodsWrapper"
+                :click="clickGoods"
+                :data="goods"
+                :probeType="probeTypeGoods">
             <ul>
                 <!--一般起用于js计算的class名goods-list-hook-->
                 <li v-for="(item,index) in goods" class="goods-item goods-list-hook">
@@ -36,13 +50,13 @@
                     </ul>
                 </li>
             </ul>
-        </div>
+        </scroll>
         <shopCart ref="shopcart"></shopCart>
     </div>
 </template>
 
 <script>
-import BSroll from 'better-scroll'
+import scroll from '../scroll/Scroll.vue'
 import shopCart from '../shopCart/shopCart.vue'
 import cartControl from '../cartControl/cartContrl.vue'
 import Bus from '../../common/js/eventBus.js'
@@ -51,21 +65,26 @@ const ERR_OK = 0;
 export default {
     data() {
         return {
-            goods: {},
+            goods: [],
             heightList: [],
             scrollY: 0
         }
     },
     created() {
-        this.$http.get('/api/goods').then((resp) => {
+      //希望scroll在滚动的时候实时告诉我们位置
+      this.probeTypeGoods = 3;
+      this.clickGoods = true;
+      this.clickMenu = true;
+
+      this.$http.get('/api/goods').then((resp) => {
             resp = resp.data;
             if (resp.errno === ERR_OK) {
                 this.goods = resp.data;
                 // DOM 更新了 操作dom时一定要调用$nextTick接口,在这个接口的回调函数里进行操作
-                this.$nextTick(() => {
-                    this._initScroll();
+//                this.$nextTick(() => {
+//                    this._initScroll();
                     this._calculateHeight();
-                })
+//                })
             }
         })
         this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
@@ -88,32 +107,34 @@ export default {
             return 0
         },
         selectFoods() {
-            let foods = [];
-            this.goods.forEach((good) => {
-                good.foods.forEach((food) => {
-//                    console.log('food',food)
-                    if (food.count) {
-                        foods.push(food)
-                    }
-                })
-//                console.log('foods',foods);
-                return foods;
-            })
+//            let foods = [];
+//            this.goods.forEach((good) => {
+//                good.foods.forEach((food) => {
+////                    console.log('food',food)
+//                    if (food.count) {
+//                        foods.push(food)
+//                    }
+//                })
+////                console.log('foods',foods);
+//                return foods;
+//            })
         }
     },
     methods: {
-        _initScroll() {
-            this.menuScroll = new BSroll(this.$refs.menuWrapper, {
-                click: true
-            })
-            this.goodsScroll = new BSroll(this.$refs.goodsWrapper, {
-                click: true,//BSroll阻止了点击事件，加上才能在元素上绑定点击事件
-                probeType: 3
-                //希望scroll在滚动的时候实时告诉我们位置
-            })
-            this.goodsScroll.on('scroll', (pos) => {
-                this.scrollY = Math.abs(Math.round(pos.y));
-            })
+//        _initScroll() {
+//            this.menuScroll = new BSroll(this.$refs.menuWrapper, {
+//                click: true
+//            })
+//            this.goodsScroll = new BSroll(this.$refs.goodsWrapper, {
+//                click: true,//BSroll阻止了点击事件，加上才能在元素上绑定点击事件
+//                probeType: 3
+//            })
+//            this.goodsScroll.on('scroll', (pos) => {
+//                this.scrollY = Math.abs(Math.round(pos.y));
+//            })
+//        },
+        scrollChange(position){
+            console.log(position);
         },
         _calculateHeight() {
             let height = 0;
@@ -123,20 +144,22 @@ export default {
                 height += goodsLiDOM[i].clientHeight;
                 this.heightList.push(height)
             }
+            console.log('this.heightList',this.heightList)
         },
         selectMenu(index, $event) {
-            // BSscroll手动派发的$event,浏览器原生的$event没有这个属性
-            if (!$event._constructed) {
-                return;
-            }
-            let goodsLiDOM = document.getElementsByClassName('goods-list-hook');
-            let el = goodsLiDOM[index];
-            this.goodsScroll.scrollToElement(el, 300)
+//            // BSscroll手动派发的$event,浏览器原生的$event没有这个属性
+              if (!$event._constructed) {
+                  return;
+              }
+              let goodsLiDOM = document.getElementsByClassName('goods-list-hook');
+              let el = goodsLiDOM[index];
+              this.$refs.goodsWrapper.scroll.scrollToElement(el,200);
         }
     },
     components: {
-        'shopCart': shopCart,
-        'cartControl': cartControl
+        shopCart,
+        cartControl,
+        scroll
     }
 }
 </script>
