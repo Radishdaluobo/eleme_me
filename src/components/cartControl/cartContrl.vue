@@ -5,15 +5,13 @@
                 <span class="inner icon-remove_circle_outline"></span>
             </div>
         </transition>
-        <div class="cart-count" v-show="food.count>0">{{ food.count }}</div>
+        <div class="cart-count" v-show="food.count>0">{{ food.count}}</div>
         <div class="cart-add icon-add_circle" @click="addCart($event)"></div>
-        <div style="display:none">{{ num.n }}</div>
     </div>
 </template>
 
 <script>
-import Vue from 'Vue'
-import Bus from '../../common/js/eventBus.js'
+  import Vue from 'vue'
 export default {
     props: {
         food: {
@@ -21,37 +19,27 @@ export default {
         }
     },
     data() {
-        return {
-            num: {
-                  n:0
-            }
-        }
+        return {}
     },
-    created() {
-
-    },
+    created() {},
     methods: {
         addCart(event) {
-           if (event._constructed) {
-               return;
-           }
-          console.log(this.food.count)
+//           if (event._constructed) {
+//             return;
+//           }
             if (!this.food.count) {
                 Vue.set(this.food, 'count', 1);
-                this.num.n = 1;
             } else {
-                this.num.n = ++this.food.count;
+                this.food.count++
             }
-            Bus.$emit('cart.add', this.num);
         },
         decreaseCart(event) {
-           if (event._constructed) {
-               return;
-           }
+//            if (event._constructed) {
+//                 return;
+//             }
             if (this.food.count) {
-                this.num.n = --this.food.count;
+              this.food.count--
             }
-            Bus.$emit('cart.add', this.num);
         }
     }
 }

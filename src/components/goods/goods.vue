@@ -50,6 +50,7 @@
                 </li>
             </ul>
         </scroll>
+        <!--<h3 class="goods-item-title fixed">{{goods[currentIndex].name}}</h3>-->
         <shopCart ref="shopcart"></shopCart>
     </div>
 </template>
@@ -199,6 +200,7 @@ export default {
             &.active {
                 background: #933;
                 font-weight: 700;
+                color:#fff;
             }
             .text {
                 font-size: 12px;
