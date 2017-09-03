@@ -18,10 +18,6 @@ export default {
             type: Object
         }
     },
-    data() {
-        return {}
-    },
-    created() {},
     methods: {
         addCart(event) {
 //           if (event._constructed) {
@@ -32,14 +28,17 @@ export default {
             } else {
                 this.food.count++
             }
+            this.$emit('food',this.food);
         },
         decreaseCart(event) {
 //            if (event._constructed) {
 //                 return;
 //             }
             if (this.food.count) {
-              this.food.count--
+                this.food.count--;
             }
+            if (this.food.count <= 0) return;
+            this.$emit('food',this.food);
         }
     }
 }

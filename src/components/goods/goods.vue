@@ -51,7 +51,7 @@
             </ul>
         </scroll>
         <!--<h3 class="goods-item-title fixed">{{goods[currentIndex].name}}</h3>-->
-        <shopCart ref="shopcart"></shopCart>
+        <shopCart ref="shopcart" :selectFoods="selectFoods"></shopCart>
     </div>
 </template>
 
@@ -99,17 +99,15 @@ export default {
     },
     computed: {
         selectFoods() {
-//            let foods = [];
-//            this.goods.forEach((good) => {
-//                good.foods.forEach((food) => {
-////                    console.log('food',food)
-//                    if (food.count) {
-//                        foods.push(food)
-//                    }
-//                })
-////                console.log('foods',foods);
-//                return foods;
-//            })
+            let foods = [];
+            this.goods.forEach((good) => {
+                good.foods.forEach((food) => {
+                    if (food.count) {
+                        foods.push(food)
+                    }
+                })
+            })
+            return foods;
         }
     },
     methods: {

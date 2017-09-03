@@ -5,17 +5,16 @@
                 <div class="logo-wrapper">
                     <div class="logo">
                         <i class="icon-shopping_cart"></i>
-                        <span class="select-num">12</span>
+                        <span class="select-num">{{num}}</span>
                     </div>
                 </div>
                 <div class="desc">
                     另需配送费¥
-                    <span>4</span>元
+                    <span>{{spread}}</span>元
                 </div>
                 <div class="price">
-                    ¥0
+                    ¥{{price}}
                 </div>
-    
             </div>
             <div class="content-right">
                 ¥20元起送
@@ -28,7 +27,27 @@
 export default {
     data() {
         return {
-
+            price:0,
+            num:0,
+            spread:0
+        }
+    },
+    props:{
+        selectFoods:{
+            type:Array,
+            default:[]
+        }
+    },
+    watch:{
+        selectFoods(arr){
+            this.price = 0;
+            this.num = 0;
+            console.log('arr',arr);
+            arr.forEach((val)=>{
+                this.price += val.count * val.price;
+                this.num += val.count;
+            })
+            this.spread = (20 - this.price) > 0 ? (20 - this.price) : 0;
         }
     }
 }
